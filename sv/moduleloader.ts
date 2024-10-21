@@ -17,6 +17,7 @@ window.addEventListener("load", function() {
             for (let y of byImport[importname]) {
                 new c.default({
                     target: y.target,
+                    hydrate: true,
                 })
             }
         })

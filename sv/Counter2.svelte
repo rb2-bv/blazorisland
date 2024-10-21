@@ -3,16 +3,16 @@
 
 	/** @param {MouseEvent} event */
 	function handleClick(event) {
-		$count -= 1;
+		$count += 1;
 	}
 </script>
 
 <button on:click={handleClick}>
-	count: {$count + 10}
+	count2: {$count}
 </button>
 
 <style>
 	button {
-		background: lightgreen
+		background: lightblue
 	}
 </style>

@@ -2,5 +2,4 @@ node_modules
 obj
 bin
 appsettings.Development.json
-wwwroot/js/
 .vscode

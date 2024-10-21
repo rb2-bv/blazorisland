@@ -1,9 +1,14 @@
-﻿@inherits LayoutComponentBase
+﻿@using Jint
+@inherits LayoutComponentBase
 
 <div class="page">
     <div class="sidebar">
-        <helper id="counter1" data-permanent component="/js/Counter.js" />
-        <helper id="counter2" data-permanent component="/js/Counter2.js"/>
+        <helper id="counter1" data-permanent component="/js/Counter.js">
+            @((MarkupString)LoadComponentJS("Counter.js"))
+        </helper>
+        <helper id="counter2" data-permanent component="/js/Counter2.js">
+            @((MarkupString)LoadComponentJS("Counter2.js"))
+        </helper>
         <NavMenu />
     </div>
 
@@ -27,3 +32,15 @@
 <style src="/js/Counter.css"></style>
 <style src="/js/Counter2.css"></style>
 <script src="/js/moduleloader.js" type="module"></script>
+@code {
+    Engine engine = new Engine(options =>
+{
+    options.EnableModules(@"/home/carlokok/projects/blazorssrisland/js");
+});
+    public string LoadComponentJS(string n) {
+
+        var ns = engine.Modules.Import("./" + n);
+        var val = ns.Get("default").Get("render").Call();
+        return val.Get("html").AsString();
+    }
+}   
