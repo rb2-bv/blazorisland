@@ -8,4 +8,6 @@ note: proof of concept. the server side doesnt do any caching or optimization an
 
 # points of interest 
 
-* * [js](js/)
+* [sv](sv/) svelte components, runtime loader and build scripts
+* [js](js/) generated server side svelte components. these run inside .net via JInt.
+* [wwwroot js](wwwroot/js/) generated cliënt side svelte components. these run in the browser 
