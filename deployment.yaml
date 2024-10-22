@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: app
-          image: acrworkflow1729603589114.azurecr.io/blazorisland/image-workflow-1729603589114:latest
+          image: acrworkflow1729603589114.azurecr.io/blazorisland
           resources:
             limits:
               cpu: "500m"
