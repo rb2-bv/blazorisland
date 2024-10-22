@@ -5,7 +5,7 @@ metadata:
   labels:
     app: app
     kubernetes.azure.com/generator: devhub
-  namespace: acrworkflow1729603589114
+  namespace: namespace-workflow-1729603589114
 spec:
   replicas: 1
   selector:
