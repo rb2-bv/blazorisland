@@ -21,28 +21,28 @@ spec:
           image: acrworkflow1729603589114.azurecr.io/blazorisland
           resources:
             limits:
-              cpu: "500m"
+              cpu: "200m"
               memory: "512Mi"
             requests:
-              cpu: "250m"
+              cpu: "100m"
               memory: "256Mi"
           livenessProbe:
             httpGet:
               path: /healthz
-              port: 80
+              port: 8080
             initialDelaySeconds: 10
             periodSeconds: 10
             failureThreshold: 3
           readinessProbe:
             httpGet:
               path: /healthz
-              port: 80
+              port: 8080
             initialDelaySeconds: 10
             periodSeconds: 5
             failureThreshold: 3
           imagePullPolicy: Always
           ports:
-            - containerPort: 80
+            - containerPort: 8080
 ---
 apiVersion: v1
 kind: Service
@@ -58,4 +58,4 @@ spec:
   ports:
     - protocol: TCP
       port: 80
-      targetPort: 80
+      targetPort: 8080
