@@ -34,13 +34,18 @@
 <script src="/js/moduleloader.js" type="module"></script>
 @code {
     Engine engine = new Engine(options =>
-{
-    options.EnableModules(@"/home/carlokok/projects/blazorssrisland/js");
-});
+    {
+        options.EnableModules(IsRunningInDocker() ? @"/app/js" : AppEnvironment.ContentRootPath + "/js");
+    });
     public string LoadComponentJS(string n) {
 
         var ns = engine.Modules.Import("./" + n);
         var val = ns.Get("default").Get("render").Call();
         return val.Get("html").AsString();
     }
-}   
+
+    static bool IsRunningInDocker()
+    {
+        return File.Exists("/.dockerenv");
+    }
+}
