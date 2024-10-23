@@ -52,10 +52,40 @@ metadata:
   labels:
     kubernetes.azure.com/generator: devhub
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   selector:
     app: app
   ports:
     - protocol: TCP
-      port: 80
+      port: 8080
       targetPort: 8080
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: app
+  namespace: namespace-workflow-1729603589114
+  annotations:
+    nginx.ingress.kubernetes.io/backend-protocol: HTTP
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    cert-manager.io/cluster-issuer: cloudflare-letsencrypt
+    kubernetes.io/tls-acme: "true"
+    external-dns.alpha.kubernetes.io/hostname: "blazorisland.core-connect.io"
+    external-dns.alpha.kubernetes.io/cloudflare-proxied: "true"
+spec:
+  ingressClassName: webapprouting.kubernetes.azure.com
+  tls:
+    - hosts:
+        - blazorisland.core-connect.io
+      secretName: blazorisland-letsencrypt
+  rules:
+    - host: blazorisland.core-connect.io
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: app
+                port:
+                  number: 8080
